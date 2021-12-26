@@ -2,6 +2,9 @@
 
 include_once CI_CACHE . '/handlers/Handler.php';
 include_once CI_CACHE . '/includes/CinnamonCache.php';
+include_once CI_CACHE . '/includes/Enum.php';
+
+if (!defined('ABSPATH')) exit();
 
 class CacheHandler extends Handler
 {
@@ -17,13 +20,13 @@ class CacheHandler extends Handler
     public function index()
     {
         if (isset($_POST['']) && !empty($_POST[''])) {
-
+            
         }
     }
 
     private function callback($buffer) 
     {
-        // modify buffer here, and then return the updated code return $buffer;
+        // modify buffer 
     }
       
     private function bufferStart() 
@@ -35,17 +38,4 @@ class CacheHandler extends Handler
     {
         ob_end_flush();
     }
-
-
-    // Cronjob
-    // if (!wp_next_scheduled('my_task_hook')) {
-    //    wp_schedule_event( time(), 'hourly', 'my_task_hook' );
-    // }
-      
-    // add_action( 'my_task_hook', 'my_task_function' );
-      
-    // function my_task_function() {
-    //    wp_mail('you@yoursite.com', 'Automatic email', 'Hello, this is an automatically scheduled email from WordPress.');
-    // }
-
 }
