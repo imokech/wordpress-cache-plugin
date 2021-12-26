@@ -1,8 +1,12 @@
 <?php
 
+include_once CI_CACHE . '/includes/Enum.php';
+
+if (!defined('ABSPATH')) exit();
+
 class CinnamonCache
 {
-    private $cacheDir = WP_CONTENT_DIR . DIRECTORY_SEPARATOR . 'cache';
+    private $cacheDir = WP_CONTENT_DIR . DIRECTORY_SEPARATOR . Enum::CACHE_FOLDER;
 
     public function set(string $key, $value, $group = '', $expire = 0): bool
     {
