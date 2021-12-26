@@ -2,6 +2,8 @@
 
 include_once CI_CACHE . '/handlers/Handler.php';
 
+if (!defined('ABSPATH')) exit();
+
 class ManagementHandler extends Handler
 {
     public function __construct()

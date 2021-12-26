@@ -1,5 +1,7 @@
 <?php
 
+if (!defined('ABSPATH')) exit();
+
 abstract class Handler
 {
     public function __construct()
