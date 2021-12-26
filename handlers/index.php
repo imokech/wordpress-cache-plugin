@@ -1,1 +1,0 @@
-<?php //Silence most of time is Golden!
