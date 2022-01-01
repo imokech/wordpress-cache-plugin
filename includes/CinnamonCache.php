@@ -6,13 +6,11 @@ if (!defined('ABSPATH')) exit();
 
 class CinnamonCache
 {
-    private $cacheDir = WP_CONTENT_DIR . DIRECTORY_SEPARATOR . Enum::CACHE_FOLDER;
+    private $cacheDir = Enum::CACHE_DIR;
 
     public function set(string $key, $value, $group = '', $expire = 0): bool
     {
-        if (!defined('WP_CACHE') || !WP_CACHE) {
-            return false;
-        }
+        $this->checkCache();
 
         if (!empty($group)) {
             $base = $this->cacheDir . DIRECTORY_SEPARATOR . md5($group);
@@ -52,9 +50,7 @@ class CinnamonCache
 
     public function get(string $key, $group = '')
     {
-        if (!defined('WP_CACHE') || !WP_CACHE) {
-            return false;
-        }
+        $this->checkCache();
 
         if (!empty($group)) {
             $path = $this->cacheDir . DIRECTORY_SEPARATOR . md5($group) . DIRECTORY_SEPARATOR . md5($key);
@@ -118,5 +114,14 @@ class CinnamonCache
         }
 
         return false;
+    }
+
+    private function checkCache()
+    {
+        if (!WP_CACHE) 
+            return false;
+        
+        if (!defined('WP_CACHE')) 
+            defined('WP_CACHE', true);
     }
 }
