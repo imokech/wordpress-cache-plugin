@@ -1,0 +1,51 @@
+
+.ci-management-panel {
+    padding: 1rem;
+}
+
+.ci-management-panel .cache {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.ci-management-panel .cache .cache-details{
+    width: 30%;
+    border-radius: 2px;
+    border:1px solid #ddd;
+    padding: 10px;
+}
+.ci-management-panel .cache .cache-details ul {
+    list-style: none;
+}
+.ci-management-panel .cache .cache-details ul li{
+    font-size: 14px;
+    font-weight: 500;
+}
+.ci-management-panel .cache form {
+    display: flex;
+    padding: 10px;
+}
+
+.ci-management-panel .cache form button{
+    background: #666;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: .3s;
+    font-weight: 500;
+    color: #fff;
+}
+
+.ci-management-panel .cache form button:focus{
+    background: rgb(233, 178, 26);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    transition: .3s;
+}
