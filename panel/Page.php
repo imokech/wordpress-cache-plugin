@@ -1,5 +1,7 @@
 <?php
 
+namespace Cinnamon\Panel;
+
 if (!defined('ABSPATH')) exit();
 
 abstract class Page
