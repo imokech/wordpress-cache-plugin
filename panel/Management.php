@@ -1,5 +1,12 @@
 <?php
 
+namespace Cinnamon\Panel;
+
+use Cinnamon\Includes\Enum;
+use FilesystemIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+
 include_once CI_CACHE . '/panel/Page.php';
 include_once CI_CACHE . '/includes/Enum.php';
 
@@ -40,6 +47,9 @@ class Management extends Page
 
     private function getCachedFilesCount()
     {
+        if (!is_dir(Enum::CACHE_DIR))
+            return false;
+
         $files = new FilesystemIterator(Enum::CACHE_DIR, FilesystemIterator::SKIP_DOTS);
         return iterator_count($files);
     }
@@ -59,6 +69,8 @@ class Management extends Page
             $fileSize = $fileSize." GB";
         };
 
+        $fileSize = ($fileSizeByte <= 4096) ? 0 : $fileSize;
+        
         return $fileSize;
     }
 }
