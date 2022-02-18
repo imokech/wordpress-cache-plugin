@@ -1,5 +1,7 @@
 <?php
 
+namespace Cinnamon\Includes;
+
 class Enum {
     const NONCE_NAME_PURGE = '_wpnonce_purge';
     const NONCE_NAME_SETTING = '_wpnonce_setting';
