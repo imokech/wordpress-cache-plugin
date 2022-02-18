@@ -5,6 +5,7 @@ namespace Cinnamon\Includes;
 use Exception;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use stdClass;
 
 include_once CI_CACHE . '/includes/Enum.php';
 
