@@ -9,21 +9,24 @@
  * Plugin Name:       Cinnamon Cache
  * Plugin URI:        https://mokech.ir
  * Description:       Cinnamon Cache 
- * Version:           1.0.0
+ * Version:           0.1.0
  * Author:            Mokech
  * Author URI:        https://mokech.ir
  * Text Domain:       Ci_Cache
  * License URI:       LICENSE.txt
  * Domain Path:       /languages
- * Tested up to:      5.8
+ * Tested up to:      5.9
  */
+
+use Cinnamon\Handlers\CacheHandler;
+use Cinnamon\Includes\Enum;
+use Cinnamon\Panel\Management;
 
 if (!defined('ABSPATH')) exit();
 
+
 function CinnamonCachePlugin ()
 {
-    include_once plugin_dir_path(__FILE__) . '/includes/Enum.php';
-  
     class Cache
     {
         public function __construct()
@@ -43,42 +46,41 @@ function CinnamonCachePlugin ()
         
         public function init()
         {
+            $this->loader();
             $this->loadSettings();
-            $this->receiveRequest();
             $this->startCaching();
         }
         
         public function loadSettings()
         {
-            include_once CI_CACHE . '/panel/Management.php';
             new Management;
         }
         
-        private function receiveRequest()
-        {
-            include_once CI_CACHE . 'handlers/ManagementHandler.php';
-            new ManagementHandler;
-        }
-
         private function startCaching()
         {
-            include_once CI_CACHE . 'handlers/CacheHandler.php';
             new CacheHandler;
         }
-
+        
         public function cinnamonCacheToolbarItem($wpAdminBar)
         {
             $args = array(
                 'id'    => 'ci_cache_item',
                 'title' => __('Flush All Cache', Text_Domain),
-                'href'  => wp_nonce_url(admin_url() . 'admin.php?page='.Enum::PAGE_SLUG, -1, Enum::NONCE_NAME_PURGE),
+                'href'  => wp_nonce_url(admin_url() . 'admin.php?page=' . Enum::PAGE_SLUG, -1, Enum::NONCE_NAME_PURGE),
             );
             $wpAdminBar->add_node( $args );
         }   
-
+        
         public function enqueueAssets()
         {
             wp_enqueue_style( 'ci-cache-style', CI_CACHE_URI . 'assets/css/style.css', [], '1.0.0');
+        }
+        
+        private function loader()
+        {
+            include_once CI_CACHE . 'includes/Enum.php';
+            include_once CI_CACHE . 'panel/Management.php';
+            include_once CI_CACHE . 'handlers/CacheHandler.php';
         }
     }
 
