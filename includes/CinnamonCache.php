@@ -1,5 +1,11 @@
 <?php
 
+namespace Cinnamon\Includes;
+
+use Exception;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+
 include_once CI_CACHE . '/includes/Enum.php';
 
 if (!defined('ABSPATH')) exit();
