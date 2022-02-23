@@ -2,13 +2,13 @@
 
 namespace Cinnamon\Panel;
 
-use Cinnamon\Includes\Enum;
+use Cinnamon\Includes\CinnamonCachePluginEnum;
 use FilesystemIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
 include_once CI_CACHE . '/panel/Page.php';
-include_once CI_CACHE . '/includes/Enum.php';
+include_once CI_CACHE . '/includes/CinnamonCachePluginEnum.php';
 
 if (!defined('ABSPATH')) exit();
 
@@ -16,10 +16,10 @@ class Management extends Page
 {
     public function __construct()
     {
-        $this->pageTitle    = __('Cinnamon', Text_Domain);
-        $this->menuTitle    = __('Cinnamon', Text_Domain);
+        $this->pageTitle    = __('Cinnamon', 'cinnamon-cache');
+        $this->menuTitle    = __('Cinnamon', 'cinnamon-cache');
         $this->capability   = 'manage_options';
-        $this->menuSlug     = Enum::PAGE_SLUG;
+        $this->menuSlug     = CinnamonCachePluginEnum::PAGE_SLUG;
 
         parent::__construct();
     }
@@ -33,7 +33,7 @@ class Management extends Page
 
     private function getCacheSize()
     {
-        $directory = Enum::CACHE_DIR;
+        $directory = CinnamonCachePluginEnum::CACHE_DIR;
         $size = 0;
 
         if (is_dir($directory)) {
@@ -47,10 +47,10 @@ class Management extends Page
 
     private function getCachedFilesCount()
     {
-        if (!is_dir(Enum::CACHE_DIR))
+        if (!is_dir(CinnamonCachePluginEnum::CACHE_DIR))
             return false;
 
-        $files = new FilesystemIterator(Enum::CACHE_DIR, FilesystemIterator::SKIP_DOTS);
+        $files = new FilesystemIterator(CinnamonCachePluginEnum::CACHE_DIR, FilesystemIterator::SKIP_DOTS);
         return iterator_count($files);
     }
 
