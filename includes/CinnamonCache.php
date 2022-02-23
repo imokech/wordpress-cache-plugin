@@ -7,13 +7,13 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use stdClass;
 
-include_once CI_CACHE . '/includes/Enum.php';
+include_once CI_CACHE . '/includes/CinnamonCachePluginEnum.php';
 
 if (!defined('ABSPATH')) exit();
 
 class CinnamonCache
 {
-    private $cacheDir = Enum::CACHE_DIR;
+    private $cacheDir = CinnamonCachePluginEnum::CACHE_DIR;
 
     public function set(string $key, $value, $group = '', $expire = 0): bool
     {
@@ -41,8 +41,7 @@ class CinnamonCache
             fwrite($cacheFile, json_encode($data));
             fclose($cacheFile);
             return true;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return $e->getMessage();
         }
     }
@@ -64,24 +63,25 @@ class CinnamonCache
         } else {
             $path = $this->cacheDir . DIRECTORY_SEPARATOR . md5($key);
         }
-        if (file_exists($path)) {
-            try {
+
+        try {
+            if (is_file($path)) {
                 $cacheFile = fopen($path, 'r');
                 $cacheData = fread($cacheFile, filesize($path));
-
+                
                 $cacheData = json_decode($cacheData);
                 $expireDate = $cacheData->valid_until;
                 $data = $cacheData->value;
-
+                
                 if ($expireDate < time()) {
                     $this->delete($key, $group);
                     return false;
                 }
                 return $data;
             }
-            catch (Exception $e) {
-                return $e->getMessage();
-            }
+            throw new Exception("No Such cached file : " . $path, 404);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
     }
 
@@ -112,8 +112,7 @@ class CinnamonCache
                         unlink($file->getRealPath());
                     }
                 }
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 return $e->getMessage();
             }
 
@@ -125,10 +124,10 @@ class CinnamonCache
 
     private function checkCache()
     {
-        if (!WP_CACHE) 
+        if (!WP_CACHE)
             return false;
-        
-        if (!defined('WP_CACHE')) 
+
+        if (!defined('WP_CACHE'))
             defined('WP_CACHE', true);
     }
 }
