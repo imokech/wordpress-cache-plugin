@@ -2,8 +2,8 @@
     <div class="cache">
         <div class="cache-details">
             <ul>
-                <li>Count of Cached Files: <span><?php echo $cacheCount; ?></span></li>
-                <li>Size on desk: <span><?php echo $cacheSize; ?></span></li>
+                <li>Count of Cached Files: <span><?php echo esc_html($cacheCount); ?></span></li>
+                <li>Size on desk: <span><?php echo esc_html($cacheSize); ?></span></li>
             </ul>
         </div>
         <form method="post">
