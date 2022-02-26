@@ -65,21 +65,23 @@ class CinnamonCache
         }
 
         try {
-            if (is_file($path)) {
-                $cacheFile = fopen($path, 'r');
-                $cacheData = fread($cacheFile, filesize($path));
-                
-                $cacheData = json_decode($cacheData);
-                $expireDate = $cacheData->valid_until;
-                $data = $cacheData->value;
-                
-                if ($expireDate < time()) {
-                    $this->delete($key, $group);
-                    return false;
-                }
-                return $data;
+            if (!is_file($path)) {
+                return false;
             }
-            throw new Exception("No Such cached file : " . $path, 404);
+            
+            $cacheFile = fopen($path, 'r');
+            $cacheData = fread($cacheFile, filesize($path));
+            
+            $cacheData = json_decode($cacheData);
+            $expireDate = $cacheData->valid_until;
+            $data = $cacheData->value;
+            
+            if ($expireDate < time()) {
+                $this->delete($key, $group);
+                return false;
+            }
+            return $data;
+            
         } catch (Exception $e) {
             return $e->getMessage();
         }
