@@ -11,7 +11,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Cinnamon can cache body of every page.
 
 == Description ==
-
+https://github.com/imokech/wordpress-cache-plugin
 
 == Frequently Asked Questions ==
 
